@@ -1,0 +1,17 @@
+env:
+  GH_TOKEN: ENCRYPTED[97177a0a04d16aa5f361f9e9cf610bbe4078f4738352fc8018894ccca85ac37ce70d4a5a6df13dbd06de15d36730803b]
+  GL_TOKEN: ENCRYPTED[96a4c85353445e629e17c5aefc89d2ec5f374411094532691b3e53ddee39c1c41b65caa229874f4823c0c4178f847b23]
+  TG_TOKEN: ENCRYPTED[!40ed47b5e997b9516e58cffa67b343735434903c369a86589902f7520603d06f92b9c50cb13ce2d08eb80a7ea72618b1!]
+  TG_CHAT_ID: ENCRYPTED[!28727ec86d35b7f2e92968deb35d3f7e24a3067c366bedfa75e6f3ac71ad42a33cf34151eb9b11b15831da00fd2bd293!]
+
+task:
+  name: Cirrus CI Recovery Builder
+  container:
+    image: 31482281/ubuntu:latest
+    cpu: 8
+    memory: 32G
+  timeout_in: 120m
+  env_script: set env && git config --global user.name "GhostMaster69-dev" && git config --global user.email "rathore6375@gmail.com" && git config --global color.ui true && git config --global credential.helper "store --file ~/.git-credentials" && echo "https://GhostMaster69-dev:${GL_TOKEN}@gitlab.com" > ~/.git-credentials && echo "https://GhostMaster69-dev:${GH_TOKEN}@github.com" >> ~/.git-credentials
+  sync_script: ./sync.sh 
+  build_script: ./build_recovery.sh
+  upload_script: ./upload.sh
